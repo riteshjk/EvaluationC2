@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #new{
+            margin-top: 10px;
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    Name: <input type="text" id="name" />
+    <button onclick="Register()">Register</button>
+    <div id="new">
+    <span>vaccine Remaining</span> <span id="count"></span>
+    </div>
+    
+
+    
+</body>
+</html>
+<script>
+    
+    let que=["pablo pandey","ritesh kamthe","swanand kadam","deepak tange","sanket patil"]
+        
+
+    function Register(){
+        let name=document.getElementById("name").value
+        que.push(name)
+        let msg=`${name}your registration is successful`
+        alert(msg)
+
+        let mypromise=new Promise(function(resolve,reject){
+            setInterval(function(){
+                if(que[0]===name){
+                resolve(`${name} its your turn`)
+            }
+            },4000)
+           
+        })
+        mypromise.then(function(res){
+            // console.log("res:",res);
+            alert(res)
+        })
+
+
+
+
+    }
+
+    let a;
+    function startvaccination(){
+        que.shift(name);
+        let a=que.length;
+        document.querySelector("#count").textContent=a;
+
+
+
+        if(que.length===0){
+            clearInterval(id);
+            alert("vaccine out of stock, please visit tomorrow")
+        }
+        console.log("que:",que);
+    }
+    let id=setInterval(startvaccination,3000);
+
+
+
+
+</script>

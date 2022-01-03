@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="">Search Bar</label>
+    <input type="search" id="getdata">
+    <button onclick="getvalue()">Submit</button>
+
+    <div id="deep">
+    </div>
+
+    
+</body>
+</html>
+<script>
+    function getvalue(){
+     document.querySelector("#deep").innerHTML="";
+       // console.log("hi")
+    let x=document.querySelector("#getdata").value
+
+    
+    let b="f25914ec"
+    let url=`http://www.omdbapi.com/?t=${x}&apikey=${b}`;
+    console.log(url)
+
+    async function getmovie(){
+        try{
+
+            let m= await fetch(url);
+            //console.log(m)
+            let response=await m.json();
+            console.log(response) ;
+           if(response.Response=="False"){
+              // console.log("deep")
+              let sanket=document.createElement("img");
+              sanket.src="https://grafmag.pl/storage/media/f/0/f05da679342107f92111ad9d65959cd3/CodePen-404-Page.gif";
+              document.querySelector("#deep").append(sanket)
+           }
+           else{
+               if(response.imdbRating > 8.5){
+                let y=`<div>
+                <h3>Recommended</h3>
+
+            <img src="${response.Poster}" alt="">
+            <h4>${response.Title}</h4>
+            <h3>${response.Actors}</h3>
+            <h3>${response.imdbRating}</h3>
+
+
+
+
+        </div>`;
+
+        
+        document.querySelector("#deep").innerHTML=y;
+
+               }
+               else{
+                let y=`<div>
+            <img src="${response.Poster}" alt="">
+            <h4>${response.Title}</h4>
+            <h3>${response.Actors}</h3>
+            <h3>${response.imdbRating}</h3>
+
+
+
+
+        </div>`;
+
+        
+        document.querySelector("#deep").innerHTML=y;
+
+               }
+           
+        }
+
+           }
+
+       
+        catch(err){
+            console.log(err)
+        }
+    }
+    getmovie();
+
+    }
+
+
+</script>

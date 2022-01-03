@@ -1,0 +1,14 @@
+img{
+    width:200px;
+    height:200px;
+}
+#main{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    justify-content:space-around;
+    margin-left: 130px;
+}
+#new{
+    float:right;
+    font-size: x-large;
+}

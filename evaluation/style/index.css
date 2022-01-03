@@ -1,0 +1,11 @@
+#container{
+    width:90%;
+    height:60px;
+    display: flex;
+    border:1px solid black;
+    margin:auto;
+    column-gap: 30px;
+    padding:20px;
+
+
+}

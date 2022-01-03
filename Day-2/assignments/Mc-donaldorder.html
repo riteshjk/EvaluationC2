@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            width:500px;
+            height: 300px;
+            border:5px solid black;
+            justify-content: center;
+
+       
+        }
+        #container{
+            font-size: 20px;
+            text-align: center;
+            width:200px;
+            height:300px;
+            border:1px solid black;
+            background-color: teal;
+            padding: 20px;
+            margin: auto;
+        }
+        #order{
+            text-align: center;
+            background-color: black;
+            color:white;
+            width:100px;
+            height:40px;
+            font-weight: 600;
+        }
+        .order{
+            float: right;
+            color:red;
+        }
+
+    </style>
+</head>
+<body>
+   <div id="container">
+       <label for="">Popcorn</label><br>
+       <input type="checkbox" value="pop" id="bug" name="mymenu"><br>
+
+       <label for="">Pizza</label><br>
+       <input type="checkbox" value="pizza" id="piz" name="mymenu"><br>
+       
+       <label for="">KFC Bucket</label><br>
+       <input type="checkbox" value="bucket" id="mug" name="mymenu"><br>
+       
+       <label for="">Fries</label><br>
+       <input type="checkbox" value="fries" id="fri" name="mymenu"><br>
+       
+       <label for="">Burger</label><br>
+       <input type="checkbox" value="bur" id="che" name="mymenu"><br>
+       
+       <label for="">coke</label><br>
+       <input type="checkbox" value="coke" id="co" name="mymenu"><br>
+       <button id="order">Order Food</button><br>
+
+       
+       
+
+   </div>
+   <div id="orderdata"></div>
+   <div id="last"></div>
+    
+</body>
+</html>
+<script>
+  let x= document.getElementById("order").addEventListener("click",myfood);
+  
+
+  let a="https://th.bing.com/th/id/R.4d06855d70393a59e31280d5cd8b75a9?rik=WpPOqhVxNZ0gCg&riu=http%3a%2f%2fimages.wisegeek.com%2fbowl-of-popcorn.jpg&ehk=K9v41gadDMX9nQ4Rok28DNtF6YG6H2%2b9LBGJ45fU9QA%3d&risl=&pid=ImgRaw&r=0";
+  let b="https://b.zmtcdn.com/data/reviews_photos/a92/b4021323f4655e89574c46dc5ed22a92_1591806834.jpg";
+  let c="https://www.bing.com/th?id=OIP.q-3WZyRyNxK9VhpbBzoa4AHaIR&w=128&h=170&c=8&rs=1&qlt=90&o=6&dpr=1.25&pid=3.1&rm=2";
+  let d="https://www.bing.com/th?id=ATOOL98D29A2BFB942A3C934581E39C09011A71B9DF39C317B467C67E4F232E28A229&w=472&h=280&c=13&rs=2&o=6&dpr=1.25&pid=SANGAM";
+  let e="https://www.bing.com/th?id=OIP.fEh0pcXPRJrtL9tgSd31JgHaFn&w=234&h=160&c=8&rs=1&qlt=90&o=6&dpr=1.25&pid=3.1&rm=2";
+  let f="https://www.bing.com/th?id=OIP.hTZxdL47mFzI4Rj5V3iV-wHaGl&w=111&h=98&c=8&rs=1&qlt=90&o=6&dpr=1.25&pid=3.1&rm=2";
+
+  function myfood(){
+
+
+      let id=Math.ceil(Math.random()*100);
+
+      let checkboxes=document.getElementsByName('mymenu');
+      for(let i=0;i<checkboxes.length;i++){
+       var s=checkboxes[i].checked == true; 
+
+        let foodPromise = new Promise(function(resolve, reject){
+           if(s==true){
+            resolve("available");
+           } 
+          else{
+            reject("not available");
+          }
+          
+       })
+        
+       foodPromise.then(function (res){
+           document.querySelector("#orderdata").innerHTML="";
+          console.log(res);
+          setTimeout(function(){
+            if(checkboxes[i].checked == true){
+              console.log(checkboxes[i].value);
+
+              if(checkboxes[i].value=="pop"){
+                let sanket=document.createElement("img");
+                sanket.src=a;
+                document.querySelector("#orderdata").append(sanket)
+              }
+              if(checkboxes[i].value=="pizza"){
+                let sanket=document.createElement("img");
+                sanket.src=b;
+                document.querySelector("#orderdata").append(sanket)
+              }
+              if(checkboxes[i].value=="bucket"){
+                let sanket=document.createElement("img");
+                sanket.src=c;
+                document.querySelector("#orderdata").append(sanket)
+              }
+              if(checkboxes[i].value=="fries"){
+                let sanket=document.createElement("img");
+                sanket.src=d;
+                document.querySelector("#orderdata").append(sanket)
+              }
+              if(checkboxes[i].value=="bur"){
+                let sanket=document.createElement("img");
+                sanket.src=e;
+                document.querySelector("#orderdata").append(sanket)
+              }
+              if(checkboxes[i].value=="coke"){
+                let sanket=document.createElement("img");
+                sanket.src=f;
+                document.querySelector("#orderdata").append(sanket)
+              }
+
+              
+              
+
+          }
+          },5000)
+          
+
+
+       })
+       foodPromise.catch(function (er){
+           console.log(er);
+       })
+
+       
+         
+      }
+      setTimeout(function(){
+            
+            let orderid=document.createElement("h4")
+            orderid.setAttribute("class","order");
+              orderid.textContent="Order Number -"+id;
+               document.querySelector("#orderdata").append(orderid);
+        },5000)
+  }
+
+
+
+
+
+</script>

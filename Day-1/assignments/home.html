@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #container{
+           width: 90%;
+           display: flex;
+           border: 1px solid black;
+           height:30px;
+           margin: auto;
+           justify-content: right;
+           padding: 10px;
+           margin-bottom: 50px;
+           background-color: bisque;
+
+        }
+        #container>div{
+            margin: 6px;
+            width: 5%;
+            font-size: 15px;
+            font-weight: 600;
+
+
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        img{
+            height: 250px;
+            width: 370px;
+            border-radius: 15px;
+
+        }
+        #movie{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 400px);
+            grid-gap:60px; 
+            row-gap: 60px;
+            margin:auto;
+            justify-content: space-between;
+            width: 80%;
+        }
+        #movie>.box{
+            border-radius: 10px;
+            box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+            background-color:darkgrey; 
+        }
+        .box>h3,h4{
+            margin-left: 20px;
+        }
+        #slideshow{
+        margin: auto;
+        width:90%;
+        margin-bottom: 60px;
+        
+  
+  
+        }
+         .Image{
+        width: 100%;
+        height: 800px;
+       }
+       #sort{
+           color:red;
+           margin-bottom: 20px;
+           margin-left: 70px;
+           background-color: bisque;
+       }
+       #boss{
+           background-color:#0c111b;
+       }
+            
+        
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="boss">
+    
+
+    <div id="container">
+        <div><a href="home.html">Home</a></div>
+        <div><a href="login.html">Login</a></div>
+        <div><a href="signup.html">Signup</a></div>
+  </div>
+  <div>
+      <select name="" id="sort" onchange="sorting()">
+          <option>-----</option>
+          <option value="high">High to low</option>
+          <option value="low">Low to high</option>
+      </select>
+  </div>
+  <div id="slideshow"></div>
+    <div id="movie"></div>
+
+
+
+    
+</body>
+</html>
+<script>
+    let arr=JSON.parse(localStorage.getItem("movieData"))||[];
+
+function yrf (a,b,c,d){
+    this.img=a, 
+    this.name=b, 
+    this.date=c, 
+    this.imd=d
+}
+
+
+
+let m1=new yrf("https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/896/580896-v", "Chichore", "1/2/2021", "9.8")
+arr.push(m1);
+let m2=new yrf("https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6536/846536-v","Baggi 3" ,"1/2/2021", "9.5")
+arr.push(m2);
+let m3=new yrf("https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/6828/556828-v", "Super 30", "1/2/2021", "9.4")
+arr.push(m3);
+let m4=new yrf("https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/473/1080473-v-d97e637cb29d", "CASH", "1/2/2021", "7.5")
+arr.push(m4);
+let m5=new yrf("https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/8061/928061-v", "ICE MAN", "1/2/2021", "5.5")
+arr.push(m5);
+let m6=new yrf("https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/8690/1078690-v-0cb0fd8d0f22","JUNGLE CRUICE" ,"1/2/2021", "9.0")
+arr.push(m6);
+let m7=new yrf("https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_1_5x/sources/r1/cms/prod/2008/1092008-v-784b48623234", "HUNGAMA 2", "1/2/2021", "8.4")
+arr.push(m7);
+let m8=new yrf("https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/1347/1091347-v-1ddd8b64ce22", "Engato", "1/2/2021", "7.5")
+arr.push(m8);
+let m9=new yrf("https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/3669/593669-v", "Chichore", "1/2/2021", "8.5")
+arr.push(m9);
+console.log(arr);
+
+
+// localStorage.setItem("movieData",JSON.stringify(arr));
+display(arr);
+
+function display(arr){
+    document.querySelector("#movie").innerHTML="";
+
+    let x="";
+
+arr.map(function(ele){
+x +=  ` <div class="box">
+     <div>
+     <img src="${ele.img}" alt="">
+     </div>
+
+     <h3>Name :${ele.name}</h3>
+     <h4>Date :${ele.date}</h4>
+     <h4>IMD rating :${ele.imd}</h4>
+ </div>`
+})
+let test = document.querySelector("#movie");
+ test.innerHTML = x;
+
+}
+
+function sorting(){
+    
+
+    let y=document.querySelector("#sort").value;
+
+    if(y=="low"){
+        arr.sort(function(a,b){
+            return Number(a.imd)-Number(b.imd);
+        })
+    }
+    if(y=="high"){
+        arr.sort(function(a,b){
+            return Number(b.imd)-Number(a.imd);
+        })
+    }
+
+    display(arr)
+
+    
+    
+    
+}
+let id;
+let slideShowImage=["https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/896/580896-v","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/8061/928061-v","https://img1.hotstarext.com/image/upload/f_auto,t_web_vl_3x/sources/r1/cms/prod/473/1080473-v-d97e637cb29d"]
+    let div = document.getElementById("slideshow");
+
+    div.innerHTML =null;
+
+    let img = document.createElement("img");
+
+    img.src = slideShowImage[0];
+
+    img.setAttribute("class","Image")
+    
+    div.append(img);
+
+    let i = 1;
+
+    id = setInterval(function (){
+        if(i === slideShowImage.length){
+            i = 0;
+        }
+        img.src = slideShowImage[i];
+        div.append(img);
+        i++;
+    },3000)
+
+
+
+
+</script>

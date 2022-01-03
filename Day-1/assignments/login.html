@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #container{
+           width: 90%;
+           display: flex;
+           border: 1px solid black;
+           height:30px;
+           margin: auto;
+           justify-content: right;
+           padding: 10px;
+
+        }
+        #container>div{
+            margin: 6px;
+            width: 5%;
+            font-size: 15px;
+            font-weight: 600;
+
+
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+       
+        #create{
+            width:25%;
+            margin: auto;
+            margin-top: 50px;
+
+        }
+        label,input{
+            width: 400px;
+            padding-bottom: 20px;
+            margin: 10px;
+            padding-top: 15px;
+        }
+        #submit{
+            width:400px;
+            margin-left: 15px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <div><a href="home.html">Home</a></div>
+        <div><a href="login.html">Login</a></div>
+        <div><a href="signup.html">Signup</a></div>
+
+
+    </div>
+    <div id="create">
+        <form id="info">
+           
+
+            <label for="">Email</label><br>
+            <input type="text" id="email" placeholder="Enter your email" required><br>
+
+            <label for="">Password</label><br>
+            <input type="text" id="pass" placeholder="Enter your passward" required><br>
+
+            <input type="submit" id="submit">
+
+
+        </form>
+    </div>
+
+
+    
+</body>
+</html>
+<script>
+    document.querySelector("#info").addEventListener("submit",data);
+    var arr=JSON.parse(localStorage.getItem("userdata"));
+   // console.log(arr)
+   let flag = false;
+   function data(event){
+       event.preventDefault();
+       
+       let lemail=document.getElementById("email").value;
+       let lpass=document.getElementById("pass").value
+       
+   arr.map(function(ele){
+    if(lemail==ele.Email  && lpass==ele.Password){
+        flag=true;
+        check()
+        
+    }
+   })
+   check();
+
+  
+}
+function check(){
+    if(flag == true){
+        window.location.href="home.html"
+    }
+    else{
+        alert("wrong credentials")
+    }
+   }
+
+
+    
+
+
+
+
+
+
+    
+</script>

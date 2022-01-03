@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mapouter{
+
+            width:80%;
+            height: 400px;
+            justify-content: space-between;
+           
+        }
+        h3{
+            color:red;
+        }
+        #boss{
+            display:flex;
+            justify-content: space-between;
+        }
+        #data{
+            
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="city">
+    <button onclick="getData()">Search</button>
+
+    <button onclick="viewdata()">click here</button>
+    <div id="boss">
+
+    <div id="data"></div>
+
+
+    <div class="mapouter">
+        <div class="gmap_canvas">
+            <iframe width="600" height="500" id="gmap_canvas" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://2piratebay.org"></a><br><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}</style><a href="https://www.embedgooglemap.net">add google map to html</a></div></div>
+            </div>
+    
+    
+</body>
+</html>
+<script>
+
+    let lat;
+    let lon;
+    //
+    let div=document.getElementById("data")
+    async function getData(){
+
+        let city=document.getElementById("city").value;
+        document.querySelector("iframe").src=`https://maps.google.com/maps?q=${city}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+    
+        try{
+
+            let response=await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1a3272c30630b34da4fb86d267bc130b&units=metric`)
+
+            let x=await response.json();
+            console.log(x)
+            showWeather(x);
+
+             lat=x.coord.lat;
+             lon=x.coord.lon;
+
+            console.log(lat,lon)
+
+
+        }
+        catch(err){
+            console.log(err)
+        }
+       
+
+    }
+    function showWeather(weather){
+        document.querySelector("#data").innerHTML="";
+        let temperature = document.createElement("h3");
+        temperature.textContent = "Max Temprature :" + weather.main.temp_max + "°"; 
+
+        let temperature2 = document.createElement("h3");
+        temperature2.textContent = "Min Temprature :" + weather.main.temp_min + "°";
+
+        let wind = document.createElement("h3");
+        wind.textContent = "Wind Speed :" + weather.wind.speed;
+
+        let clouds = document.createElement("h3");
+        clouds.textContent = "Clouds :" + weather.clouds.all
+
+        let srise = document.createElement("h3");
+        srise.textContent = "Sun Rise :" + weather.sys.sunrise;
+
+        let sset = document.createElement("h3");
+        sset.textContent = "Sunset :" + weather.sys.sunset;
+
+
+        div.append(temperature,temperature2,wind,clouds,srise,sset)
+
+
+    }
+    // let view = document.createElement("iframe");
+
+    // view.src=`https://maps.google.com/maps?q=${view}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+
+    async function viewdata(){
+
+        a=lat;
+        b=lon;
+        try{
+
+        let url=`https://api.openweathermap.org/data/2.5/onecall?lat=${a}&lon=${b}&appid=1a3272c30630b34da4fb86d267bc130b`;
+
+        let data= await fetch(url);
+
+        let response= await data.json();
+
+        console.log(response)
+        }
+        catch(err){
+            console.log(err)
+
+        }
+
+    }
+    
+
+
+
+</script>
